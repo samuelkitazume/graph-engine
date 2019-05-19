@@ -1,0 +1,25 @@
+{
+  "name": "graph-engine",
+  "version": "1.0.0",
+  "description": "Orchestrator using graph",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon -L",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/samuelkitazume/graph-engine.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/samuelkitazume/graph-engine/issues"
+  },
+  "homepage": "https://github.com/samuelkitazume/graph-engine#readme",
+  "dependencies": {
+    "nodemon": "^1.19.0",
+    "orientjs": "^3.0.5"
+  }
+}

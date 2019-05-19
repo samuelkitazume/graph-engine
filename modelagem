@@ -1,0 +1,24 @@
+station:
+  - name
+  - description?
+  - railways
+
+railways:
+  - name
+  - description?
+  - destination
+  - trigger
+  - bullet
+
+itinerary:
+  - name
+  - description
+  - stations
+  - railways
+
+passenger:
+  - name?
+  - description?
+  - itinerary
+  - path
+  - station
