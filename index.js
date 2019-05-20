@@ -1,18 +1,11 @@
-const OrientDB = require('orientjs');
+const OrientDB = require('orientjs')
+const app = require('./src/app')
 
 const server = OrientDB({
   host: 'localhost',
   port: 2424,
   username: 'root',
   password: 'foo'
-});
+})
 
-const db = server.use('test');
-
-db.select()
-  .from('E')
-  .where({in: "#14:0"})
-  .all()
-  .then(result => {
-    console.log(result);
-  });
+const db = server.use('test')

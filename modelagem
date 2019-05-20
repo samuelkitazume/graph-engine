@@ -1,17 +1,17 @@
 station:
-  - name
+  - name?
   - description?
   - railways
 
 railways:
-  - name
+  - name?
   - description?
   - destination
   - trigger
   - bullet
 
 itinerary:
-  - name
+  - name?
   - description
   - stations
   - railways
