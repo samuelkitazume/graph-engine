@@ -11,6 +11,9 @@ class DB {
 
     this.db = server.use('graph-engine')
   }
+  getDb() {
+    return this.db
+  }
   async createVertex(name) {
     try {
       const v = await this.db.class.create(name, 'V')
@@ -38,17 +41,9 @@ class DB {
   async getEdge(name) {
     return this.getVertex(name)
   }
-  async createRecord(oClass, properties) {
-    try {
-      const new_record = await oClass.create(properties)
-      return new_record;
-    } catch(e) {
-      throw new Error(e)
-    }
-  }
   async createLink(name, from, to, properties) {
     try {
-      const new_link = await DB.create('EDGE', name).from(from).to(to).set(properties).one()
+      const new_link = await this.db.create('EDGE', name).from(from).to(to).set(properties).one()
       return new_link;
     } catch(e) {
       throw new Error(e)
@@ -57,14 +52,6 @@ class DB {
   async createVertexRecord(className, properties) {
     try {
       const new_record = await this.db.create('VERTEX', className).set(properties).one()
-      return new_record
-    } catch(e) {
-      throw new Error(e)
-    }
-  }
-  async createEdgeRecord(edgeName, from, to, properties) {
-    try {
-      const new_record = await this.db.create('EDGE', edgeName).from(from).to(to).set(properties).one()
       return new_record
     } catch(e) {
       throw new Error(e)
