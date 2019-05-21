@@ -1,5 +1,5 @@
 const railway = (name, trigger, bullet, destination) => Object.assign({}, { name, trigger, bullet, destination })
-const station = (name, railways) => Object.assign({}, { name, railways })
+const station = (name, railways, initial=false) => Object.assign({}, { name, railways, initial })
 
 const example = {
   name: 'example of itinerary',
@@ -16,7 +16,7 @@ const example = {
     railway('railway9', 'trigger9', 'bullet9', 'station8'),
   ],
   stations: [
-    station('station1', ['railway1', 'railway2']),
+    station('station1', ['railway1', 'railway2'], true),
     station('station2', ['railway3', 'railway4']),
     station('station3', ['railway5']),
     station('station4', ['railway6']),
