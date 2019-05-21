@@ -1,5 +1,5 @@
 class Passenger {
-  construct({ name='', description='', itinerary, path, station }) {
+  constructor ({ name='', description='', itinerary, path, station }) {
     this.name = name
     this.description = description
     this.itinerary = itinerary
