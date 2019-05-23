@@ -14,6 +14,30 @@ class DB {
   getDb() {
     return this.db
   }
+  async getRecord(rid) {
+    try {
+      const record = await this.db.record.get(rid)
+      return record
+    } catch(e) {
+      throw new Error(e)
+    }
+  }
+  async getRecordFilter(className, params={}) {
+    try {
+      const record = await this.db.select().from(className).where(params).all()
+      return record
+    } catch(e) {
+      throw new Error(e)
+    }
+  }
+  async getOneRecordFilter(className, params={}) {
+    try {
+      const record = await this.db.select().from(className).where(params).one()
+      return record
+    } catch(e) {
+      throw new Error(e)
+    }
+  }
   async createVertex(name) {
     try {
       const v = await this.db.class.create(name, 'V')
@@ -53,6 +77,14 @@ class DB {
     try {
       const new_record = await this.db.create('VERTEX', className).set(properties).one()
       return new_record
+    } catch(e) {
+      throw new Error(e)
+    }
+  }
+  async updateRecord(record) {
+    try {
+      const updated = await this.db.record.update(record)
+      return updated
     } catch(e) {
       throw new Error(e)
     }
