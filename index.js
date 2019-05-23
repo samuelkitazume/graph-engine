@@ -1,5 +1,5 @@
 const OrientDB = require('orientjs')
-const app = require('./src/app')
+const app = require('./src/app/first_attempt')
 
 const server = OrientDB({
   host: 'localhost',
