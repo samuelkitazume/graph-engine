@@ -1,32 +1,50 @@
-const example = require('./itinerary_example')
-const passenger_example = require('./passenger_example')
-const Database = require('../infra/DB')
-const Itinerary = require('../domain/itinerary')
-const ItineraryRepository = require('../domain/itinerary/itineraryRepository')
-const Passenger = require('../domain/passenger')
-const PassengerRepository = require('../domain/passenger/passengerRepository')
-const StationRepository = require('../domain/station/stationRepository')
-const RailwayRepository = require('../domain/railway/railwayRepository')
+const Manager = require('../infra/manager')
+const itineraryExample = require('./itinerary_example')
+const buildPassenger = require('./passenger_example')
 
-const DB = new Database()
-
-const itineraryRepository = new ItineraryRepository({ DB })
-const passengerRepository = new PassengerRepository({ DB })
-const stationRepository = new StationRepository({ DB })
-const railwayRepository = new RailwayRepository({ DB })
+const manager = new Manager()
 
 async function test() {
-  const itineraryCreated = await itineraryRepository.createItinerary(example)
-  const itineraryGot = await itineraryRepository.getItinerary(itineraryCreated)
-  const itinerary = new Itinerary({ stations: itineraryGot })
 
-  const passengerCreated = await passengerRepository.createPassenger(passenger_example(itineraryCreated), itinerary.getInitial()['@rid'].toString())
-  const passengerGot = await passengerRepository.getPassenger(passengerCreated.hash)
-  const passenger = new Passenger(passengerGot)
-  const passengerRailwayToStation = await railwayRepository.getRailway(passenger.linkToStation.toString())
-  const passengerStation = await stationRepository.getStation(passengerRailwayToStation.in.toString())
+  // await manager.createEnvironment()
 
-  console.log(itinerary, passengerGot, passengerRailwayToStation, passengerStation)
+  let newItinerary = await manager.addItinerary(itineraryExample)
+
+  let stations = await Promise.all(itineraryExample.stations.map(async (s) => {
+    return manager.createStation(Object.assign({}, s, { itinerary: newItinerary.hash }))
+  }))
+
+  let stationsObject = stations.reduce((o, s) => {
+    o[s.name] = s
+    return o
+  }, {})
+
+  let railwaysObject = itineraryExample.stations.reduce((o, s) => {
+    if (s.railways && s.railways.length > 0) {
+      for (let railway = s.railways.length - 1; railway > -1; railway--) {
+        o[s.railways[railway]] = s.name
+      }
+    }
+    return o
+  }, {})
+
+  let railways = await Promise.all(itineraryExample.railways.map((r) => {
+    return manager.linkStations({
+      from: stationsObject[railwaysObject[r.name]]['@rid'].toString(),
+      to: stationsObject[r.destination]['@rid'].toString(),
+      ticket: r.trigger,
+      receipt: r.bullet
+    })
+  }))
+
+  console.log(newItinerary, stations, railways)
+
+  let passenger = buildPassenger(newItinerary.hash)
+
+  let newPassenger = await manager.createPassenger(passenger)
+
+  console.log('passenger', newPassenger)
+
 }
 
 test()
