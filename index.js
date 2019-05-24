@@ -1,11 +1,13 @@
-const OrientDB = require('orientjs')
-const app = require('./src/app/first_attempt')
+const express = require('express')
+const bodyParser = require('body-parser')
+const app = require('./src/app')
 
-const server = OrientDB({
-  host: 'localhost',
-  port: 2424,
-  username: 'root',
-  password: 'foo'
+const server = express()
+
+server.use(bodyParser.json())
+
+app(server)
+
+server.listen(7000, (err) => {
+  console.log('Graph-engine working on 7000')
 })
-
-const db = server.use('test')
