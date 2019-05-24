@@ -1,6 +1,6 @@
 const Manager = require('../infra/manager')
-const itineraryExample = require('./itinerary_example')
-const buildPassenger = require('./passenger_example')
+const itineraryExample = require('../../example/itinerary_example')
+const buildPassenger = require('../../example/passenger_example')
 
 const manager = new Manager()
 
@@ -55,18 +55,18 @@ async function movePass({ hash, ticket }) {
   console.log(newStation)
 }
 
-movePass({ hash: 'b294fb58', ticket: 'trigger9' })
+// movePass({ hash: '7b61ccdf', ticket: 'trigger9' })
 
 async function checkTicket({ hash, ticket }) {
   let newStation = await manager.checkTicket({ hash, ticket })
   console.log(newStation)
 }
 
-// checkTicket({ hash: '65889510', ticket: 'trigger9' })
+// checkTicket({ hash: '7b61ccdf', ticket: 'trigger9' })
 
 async function getTickets({ hash }) {
   let newStation = await manager.getTickets({ hash })
   console.log('tickets',newStation)
 }
 
-// getTickets({ hash: '65889510' })
+// getTickets({ hash: '7b61ccdf' })
