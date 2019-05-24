@@ -5,7 +5,15 @@ class PassengerController {
   }
   
   async createPassenger(o) {
-    return await this.manager.createPassenger(passenger)
+    return await this.manager.createPassenger(o)
+  }
+
+  async getPassengers() {
+    return await this.manager.getPassengers()
+  }
+
+  async getPassenger({ hash }) {
+    return await this.manager.getPassenger({ hash })
   }
 
   async checkPassengerTicket({ passengerHash, ticket }) {

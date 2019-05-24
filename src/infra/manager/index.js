@@ -98,6 +98,25 @@ class Manager {
       throw new Error(e)
     }
   }
+  async getPassenger({ hash }) {
+    try {
+      const passenger = await this.db
+        .let('passenger', selectFromWhere('', 'Passenger', { hash }))
+        .let('station', selectFromWhere('', 'Station', `in("Stop").hash="${hash}"`))
+        .commit().return('{ passenger: $passenger, station: $station }').one()
+      return passenger
+    } catch(e) {
+      throw new Error(e)
+    }
+  }
+  async getPassengers() {
+    try {
+      const passengers = await this.db.select().from('Passenger').all()
+      return passengers
+    } catch(e) {
+      throw new Error(e)
+    }
+  }
   async checkTicket({ hash, ticket }) {
     try {
       const checkTicket = await this.db
