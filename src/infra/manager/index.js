@@ -14,6 +14,8 @@ class Manager {
     })
 
     this.db = server.use('graph-engine')
+    this.db.on("endQuery", obj => console.log('DEBUG', obj.input.query))
+    
   }
   async createEnvironment() {
     try {
