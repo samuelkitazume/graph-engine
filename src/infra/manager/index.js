@@ -121,11 +121,10 @@ class Manager {
   }
   async movePassenger({ hash, ticket }) {
     try {
-      this.db.on("endQuery", obj => console.log('DEBUG', obj.input.query))
       const movePassenger = await this.db
-      .let('receipt', selectFromWhere('outE("Railway").receipt as receipt', 'Station', `in("Stop").hash="${hash}"`))
       .let('passenger', selectFromWhere('', 'Passenger', { hash }))
       .let('passengerStation', selectFromWhere('', 'Station', `in("Stop").hash="${hash}"`))
+      .let('receipt', selectFromWhere('receipt', 'TRAVERSE outE("Railway") FROM $passengerStation MAXDEPTH 1', `ticket="${ticket}"`))
       .let('newStation', selectFromWhere('in', 'TRAVERSE outE("Railway") FROM $passengerStation MAXDEPTH 1', `ticket="${ticket}"`))
       .let('newStop', (n) => {
         n.create('EDGE', 'Stop')
@@ -138,7 +137,7 @@ class Manager {
         .to('$passengerStation')
       })
       .commit().return('$receipt').one()
-      return movePassenger
+      return { data: movePassenger, receipt: movePassenger.receipt }
     } catch(e) {
       throw new Error(e)
     }
