@@ -10,7 +10,7 @@ const app = function(server) {
 
   server.route('/setup')
     .get(async (req,res) => {
-      res.send(await manager.createEnvironment())
+      res.json({ classes: await manager.createEnvironment() })
     })
   
   server.route('/itineraries')
