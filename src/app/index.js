@@ -6,6 +6,9 @@ const manager = new Manager()
 const itineraryController = new ItineraryController({ manager })
 const passengerController = new PassengerController({ manager })
 
+const getItineraryRouter = require('./router/itinerary')
+const getPassengerRouter = require('./router/passenger')
+
 const app = function(server) {
 
   server.route('/setup')
@@ -13,51 +16,8 @@ const app = function(server) {
       res.json({ classes: await manager.createEnvironment() })
     })
   
-  server.route('/itineraries')
-    .get(async (req, res) => {
-      const itineraries = await itineraryController.getItineraries()
-      res.json({ itineraries })
-    })
-    .post(async (req, res) => {
-      const { name='', description='', stations, railways } = req.body.itinerary
-
-      if (typeof stations === 'undefined' || stations === null) {
-        res.status(400).send('Bad request')
-      }
-
-      if (typeof railways === 'undefined' || railways === null) {
-        res.status(400).send('Bad request')
-      }
-
-      const newItinerary = await itineraryController.createItinerary({ name, description, stations, railway })
-      res.json({ itinerary: newItinerary })
-    })
-  
-  server.route('/passengers/:hash')
-    .get(async (req, res) => {
-      const passenger = await passengerController.getPassenger({ hash: req.params.hash })
-      res.json({ passenger })
-    })
-    .post(async (req, res) => {
-      const receipt = await passengerController.useTicket({ passengerHash: req.params.hash, ticket: req.body.ticket })
-      res.json({ receipt })
-    })
-
-  server.route('/passengers')
-    .get(async (req, res) => {
-      const passengers = await passengerController.getPassengers()
-      res.json({ passengers })
-    })
-    .post(async (req, res) => {
-      const { name='', description='', itinerary } = req.body.passenger
-      
-      if (typeof itinerary === 'undefined' || itinerary === null) {
-        res.status(400).send('Bad request')
-      }
-
-      const newPassenger = await passengerController.createPassenger({ name, description, itinerary })
-      res.json({ passenger: newPassenger })
-    })
+  server.use('/itineraries', getItineraryRouter({ itineraryController }))
+  server.use('/passengers', getPassengerRouter({ passengerController }))
 
 }
 
