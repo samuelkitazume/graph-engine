@@ -33,6 +33,10 @@ const app = function(server) {
       const passenger = await passengerController.getPassenger({ hash: req.params.hash })
       res.json({ passenger })
     })
+    .post(async (req, res) => {
+      const receipt = await passengerController.useTicket({ passengerHash: req.params.hash, ticket: req.body.ticket })
+      res.json({ receipt })
+    })
 
   server.route('/passengers')
     .get(async (req, res) => {
