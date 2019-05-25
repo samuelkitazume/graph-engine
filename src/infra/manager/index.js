@@ -19,11 +19,24 @@ class Manager {
   }
   async createEnvironment() {
     try {
-      await this.db.class.create('Passenger', 'V')
-      await this.db.class.create('Station', 'V')
-      await this.db.class.create('Itinerary', 'V')
-      await this.db.class.create('BelongsTo', 'E')
-      await this.db.class.create('Stop', 'E')
+    
+      const hashPassenger = await this.db.class.get('Passenger')
+      hasPassenger ? true : await this.db.class.create('Passenger', 'V')
+      
+      const hashStation = await this.db.class.get('Station')
+      hasStation ? true : await this.db.class.create('Station', 'V')
+      
+      const hashItinerary = await this.db.class.get('Itinerary')
+      hasItinerary ? true : await this.db.class.create('Itinerary', 'V')
+      
+      const hashBelongsTo = await this.db.class.get('BelongsTo')
+      hasBelongsTo ? true : await this.db.class.create('BelongsTo', 'E')
+      
+      const hashStop = await this.db.class.get('Stop')
+      hasStop ? true : await this.db.class.create('Stop', 'E')
+
+      return true
+    
     } catch(e) {
       throw new Error(e)
     }

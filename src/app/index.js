@@ -7,6 +7,11 @@ const itineraryController = new ItineraryController({ manager })
 const passengerController = new PassengerController({ manager })
 
 const app = function(server) {
+
+  server.route('/setup')
+    .get(async (req,res) => {
+      res.send(await manager.createEnvironment())
+    })
   
   server.route('/itineraries')
     .get(async (req, res) => {
