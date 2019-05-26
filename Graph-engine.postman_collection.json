@@ -1,0 +1,135 @@
+{
+	"info": {
+		"_postman_id": "ab9d9c49-9267-4cc0-8e5e-10a69b3e73a4",
+		"name": "Graph-engine",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Setup",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:7000/setup",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"setup"
+					]
+				},
+				"description": "Setting up DB environment.\nCreating vertexes and edges."
+			},
+			"response": []
+		},
+		{
+			"name": "Create example itinerary",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"itinerary\": {\n        \"name\": \"example of itinerary\",\n        \"description\": \"Lorem ipsum dolor sit amet\",\n        \"railways\": [\n            {\n                \"name\": \"railway1\",\n                \"trigger\": \"trigger1\",\n                \"bullet\": \"bullet1\",\n                \"destination\": \"station2\"\n            },\n            {\n                \"name\": \"railway2\",\n                \"trigger\": \"trigger2\",\n                \"bullet\": \"bullet2\",\n                \"destination\": \"station3\"\n            },\n            {\n                \"name\": \"railway3\",\n                \"trigger\": \"trigger3\",\n                \"bullet\": \"bullet3\",\n                \"destination\": \"station4\"\n            },\n            {\n                \"name\": \"railway4\",\n                \"trigger\": \"trigger4\",\n                \"bullet\": \"bullet4\",\n                \"destination\": \"station5\"\n            },\n            {\n                \"name\": \"railway5\",\n                \"trigger\": \"trigger5\",\n                \"bullet\": \"bullet5\",\n                \"destination\": \"station6\"\n            },\n            {\n                \"name\": \"railway6\",\n                \"trigger\": \"trigger6\",\n                \"bullet\": \"bullet6\",\n                \"destination\": \"station7\"\n            },\n            {\n                \"name\": \"railway7\",\n                \"trigger\": \"trigger7\",\n                \"bullet\": \"bullet7\",\n                \"destination\": \"station7\"\n            },\n            {\n                \"name\": \"railway8\",\n                \"trigger\": \"trigger8\",\n                \"bullet\": \"bullet8\",\n                \"destination\": \"station8\"\n            },\n            {\n                \"name\": \"railway9\",\n                \"trigger\": \"trigger9\",\n                \"bullet\": \"bullet9\",\n                \"destination\": \"station8\"\n            }\n        ],\n        \"stations\": [\n            {\n                \"name\": \"station1\",\n                \"railways\": [\n                    \"railway1\",\n                    \"railway2\"\n                ],\n                \"initial\": true\n            },\n            {\n                \"name\": \"station2\",\n                \"railways\": [\n                    \"railway3\",\n                    \"railway4\"\n                ],\n                \"initial\": false\n            },\n            {\n                \"name\": \"station3\",\n                \"railways\": [\n                    \"railway5\"\n                ],\n                \"initial\": false\n            },\n            {\n                \"name\": \"station4\",\n                \"railways\": [\n                    \"railway6\"\n                ],\n                \"initial\": false\n            },\n            {\n                \"name\": \"station5\",\n                \"railways\": [\n                    \"railway7\"\n                ],\n                \"initial\": false\n            },\n            {\n                \"name\": \"station6\",\n                \"railways\": [\n                    \"railway9\"\n                ],\n                \"initial\": false\n            },\n            {\n                \"name\": \"station7\",\n                \"railways\": [\n                    \"railway8\"\n                ],\n                \"initial\": false\n            },\n            {\n                \"name\": \"station8\",\n                \"initial\": false\n            }\n        ]\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:7000/itineraries",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"itineraries"
+					]
+				},
+				"description": "{\n  \"name\": \"example of itinerary\",\n  \"description\": \"Lorem ipsum dolor sit amet\",\n  \"railways\": [\n    {\n      \"name\": \"railway1\",\n      \"trigger\": \"trigger1\",\n      \"bullet\": \"bullet1\",\n      \"destination\": \"station2\"\n    },\n    {\n      \"name\": \"railway2\",\n      \"trigger\": \"trigger2\",\n      \"bullet\": \"bullet2\",\n      \"destination\": \"station3\"\n    },\n    {\n      \"name\": \"railway3\",\n      \"trigger\": \"trigger3\",\n      \"bullet\": \"bullet3\",\n      \"destination\": \"station4\"\n    },\n    {\n      \"name\": \"railway4\",\n      \"trigger\": \"trigger4\",\n      \"bullet\": \"bullet4\",\n      \"destination\": \"station5\"\n    },\n    {\n      \"name\": \"railway5\",\n      \"trigger\": \"trigger5\",\n      \"bullet\": \"bullet5\",\n      \"destination\": \"station6\"\n    },\n    {\n      \"name\": \"railway6\",\n      \"trigger\": \"trigger6\",\n      \"bullet\": \"bullet6\",\n      \"destination\": \"station7\"\n    },\n    {\n      \"name\": \"railway7\",\n      \"trigger\": \"trigger7\",\n      \"bullet\": \"bullet7\",\n      \"destination\": \"station7\"\n    },\n    {\n      \"name\": \"railway8\",\n      \"trigger\": \"trigger8\",\n      \"bullet\": \"bullet8\",\n      \"destination\": \"station8\"\n    },\n    {\n      \"name\": \"railway9\",\n      \"trigger\": \"trigger9\",\n      \"bullet\": \"bullet9\",\n      \"destination\": \"station8\"\n    }\n  ],\n  \"stations\": [\n    {\n      \"name\": \"station1\",\n      \"railways\": [\n        \"railway1\",\n        \"railway2\"\n      ],\n      \"initial\": true\n    },\n    {\n      \"name\": \"station2\",\n      \"railways\": [\n        \"railway3\",\n        \"railway4\"\n      ],\n      \"initial\": false\n    },\n    {\n      \"name\": \"station3\",\n      \"railways\": [\n        \"railway5\"\n      ],\n      \"initial\": false\n    },\n    {\n      \"name\": \"station4\",\n      \"railways\": [\n        \"railway6\"\n      ],\n      \"initial\": false\n    },\n    {\n      \"name\": \"station5\",\n      \"railways\": [\n        \"railway7\"\n      ],\n      \"initial\": false\n    },\n    {\n      \"name\": \"station6\",\n      \"railways\": [\n        \"railway9\"\n      ],\n      \"initial\": false\n    },\n    {\n      \"name\": \"station7\",\n      \"railways\": [\n        \"railway8\"\n      ],\n      \"initial\": false\n    },\n    {\n      \"name\": \"station8\",\n      \"initial\": false\n    }\n  ]\n}"
+			},
+			"response": []
+		},
+		{
+			"name": "Create example passenger",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f58353f6-593b-42a1-903e-3c989730abe1",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"passenger\": {\n        \"name\": \"Samuel Kitazume\",\n        \"description\": \"Lorem ipsum dolor sit amet\",\n        \"itinerary\": \"\"\n    }\n}"
+				},
+				"url": {
+					"raw": "localhost:7000/passengers",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"passengers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get itineraries list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:7000/itineraries",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"itineraries"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get passengers list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:7000/passengers",
+					"host": [
+						"localhost"
+					],
+					"port": "7000",
+					"path": [
+						"passengers"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
