@@ -1,18 +1,10 @@
-const OrientDB = require('orientjs')
 const shorthash = require('short-hash')
 
 const selectFromWhere = (select='', className, where) => 
   async (db) => await db.select(select).from(className).where(where)
 
 class Manager {
-  constructor() {
-    const server = OrientDB({
-      host: 'orientdb',
-      port: 2424,
-      username: 'root',
-      password: 'foo'
-    })
-
+  constructor({ server }) {
     this.db = server.use('graph-engine')
     this.db.on("endQuery", obj => 
       console.log('DEBUG', { query: obj.input.query, performance: obj.perf }))

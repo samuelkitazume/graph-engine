@@ -9,6 +9,9 @@ services:
       - "9229:9229" #for debug
     environment:
       - PORT=3000
+      - NATS_PORT=4222
+      - ORIENT_PORT=2424
+      - ORIENT_PWD=foo
     command: npm run start
   orientdb:
     image: orientdb:3.0.19
