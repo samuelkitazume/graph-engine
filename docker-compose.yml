@@ -13,7 +13,7 @@ services:
       - ./orientdb/backup:/opt/orientdb/backup
   nats:
     image: nats:1.4.1-linux
-    expose:
-      - "4222"
     ports:
+      - "4222:4222"
       - "8222:8222"
+      - "6222:6222"
