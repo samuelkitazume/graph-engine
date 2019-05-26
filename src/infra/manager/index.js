@@ -7,7 +7,7 @@ const selectFromWhere = (select='', className, where) =>
 class Manager {
   constructor() {
     const server = OrientDB({
-      host: 'localhost',
+      host: 'orientdb',
       port: 2424,
       username: 'root',
       password: 'foo'

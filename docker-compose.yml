@@ -1,5 +1,15 @@
 version: '3'
 services:
+  engine:
+    build: .
+    volumes:
+      - "./:/usr/data/graph-engine/"
+    ports:
+      - "3000:3000"
+      - "9229:9229" #for debug
+    environment:
+      - PORT=3000
+    command: npm run start
   orientdb:
     image: orientdb:3.0.19
     ports:
