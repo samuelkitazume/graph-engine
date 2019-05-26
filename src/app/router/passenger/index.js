@@ -5,7 +5,7 @@ const app = function({ nats, passengerController }) {
 
   router.route('/:hash/tickets')
     .get(async (req, res) => {
-      nats.requestOne('passenger.tickets.list', (tickets) => {
+      nats.requestOne('passenger.tickets.list', { hash: req.params.hash },(tickets) => {
         res.json({ tickets })
       })
     })

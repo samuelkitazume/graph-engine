@@ -18,7 +18,7 @@ const router = function({ itineraryController }) {
         res.status(400).send('Bad request')
       }
 
-      const newItinerary = await itineraryController.createItinerary({ name, description, stations, railway })
+      const newItinerary = await itineraryController.createItinerary({ name, description, stations, railways })
       res.json({ itinerary: newItinerary })
     })
   

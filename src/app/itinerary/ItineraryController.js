@@ -6,10 +6,10 @@ class ItineraryController {
   
   async createItinerary(o) {
   
-    let newItinerary = await manager.addItinerary(o)
+    let newItinerary = await this.manager.addItinerary(o)
     
     let stations = await Promise.all(o.stations.map(async (s) => {
-      return manager.createStation(Object.assign({}, s, { itinerary: newItinerary.hash }))
+      return this.manager.createStation(Object.assign({}, s, { itinerary: newItinerary.hash }))
     }))
     
     let stationsObject = stations.reduce((o, s) => {
@@ -27,7 +27,7 @@ class ItineraryController {
     }, {})
     
     await Promise.all(o.railways.map((r) => {
-      return manager.linkStations({
+      return this.manager.linkStations({
         from: stationsObject[railwaysObject[r.name]]['@rid'].toString(),
         to: stationsObject[r.destination]['@rid'].toString(),
         ticket: r.trigger,

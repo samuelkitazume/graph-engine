@@ -21,7 +21,7 @@ const app = function({ server, nats }) {
   server.use('/itineraries', getItineraryRouter({ itineraryController }))
   server.use('/passengers', getPassengerRouter({ nats, passengerController }))
 
-  subscriber({ nats })
+  subscriber({ nats, passengerController })
 }
 
 module.exports = app
