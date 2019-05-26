@@ -1,7 +1,4 @@
-const NATS = require('nats')
-const nats = NATS.connect({ url: 'nats://nats:4222', json: true })
-
-const subscriber = function({ passengerController }) {
+const subscriber = function({ nats, passengerController }) {
   nats.subscribe('passenger.tickets.list', async ({ hash, ticket }, replyTo) => {
     nats.publish(replyTo, await passengerController.getValidTicketsList({ passengerHash: hash, ticket }))
   })

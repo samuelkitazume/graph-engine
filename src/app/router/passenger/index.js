@@ -1,7 +1,14 @@
 const express = require('express')
 const router = express.Router()
 
-const app = function({ passengerController }) {
+const app = function({ nats, passengerController }) {
+
+  router.route('/:hash/tickets')
+    .get(async (req, res) => {
+      nats.requestOne('passenger.tickets.list', (tickets) => {
+        res.json({ tickets })
+      })
+    })
   
   router.route('/:hash')
     .get(async (req, res) => {

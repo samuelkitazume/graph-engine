@@ -9,7 +9,9 @@ const passengerController = new PassengerController({ manager })
 const getItineraryRouter = require('./router/itinerary')
 const getPassengerRouter = require('./router/passenger')
 
-const app = function(server) {
+const subscriber = require('./subscriber')
+
+const app = function({ server, nats }) {
 
   server.route('/setup')
     .get(async (req,res) => {
@@ -17,8 +19,9 @@ const app = function(server) {
     })
   
   server.use('/itineraries', getItineraryRouter({ itineraryController }))
-  server.use('/passengers', getPassengerRouter({ passengerController }))
+  server.use('/passengers', getPassengerRouter({ nats, passengerController }))
 
+  subscriber({ nats })
 }
 
 module.exports = app
