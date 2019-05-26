@@ -4,8 +4,8 @@ const selectFromWhere = (select='', className, where) =>
   async (db) => await db.select(select).from(className).where(where)
 
 class Manager {
-  constructor({ server }) {
-    this.db = server.use('graph-engine')
+  constructor({ server, db }) {
+    this.db = server.use(db)
     this.db.on("endQuery", obj => 
       console.log('DEBUG', { query: obj.input.query, performance: obj.perf }))
     
