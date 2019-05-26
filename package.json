@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon -L",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,8 +20,10 @@
   },
   "homepage": "https://github.com/samuelkitazume/graph-engine#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.0",
     "nats": "^1.2.10",
-    "nodemon": "^1.19.0",
+    "nodemon": "^1.19.1",
     "orientjs": "^3.0.5",
     "short-hash": "^1.0.0"
   }
